@@ -15,5 +15,7 @@ class Book (models.Model):
     title_book = models.CharField(max_length=100)
     year_of_publishment = models.IntegerField(validators=[MaxValueValidator(2100), MinValueValidator(-2100)])
 
+    def __str__(self):
+        return self.title_book
     
 # Create your models here.
