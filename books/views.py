@@ -19,8 +19,9 @@ def authors_without_books(request):
 
 def author_with_all_books(request, author_id):
     author = Author.objects.get(id=author_id)
-    all_books = Book.objects.all()
+    all_books = author.book_set.all()
     txt = ''
     for book in all_books :
         txt += book.title_book + ' '
-    return HttpResponse(f'hej oto nasz twórca : {author} <br> a o to lista jego utworów : <br> {txt}' )    
+    return HttpResponse(f'hej oto nasz twórca : {author} <br> a o to lista jego utworów : <br> {txt}' )
+
