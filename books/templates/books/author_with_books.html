@@ -1,0 +1,14 @@
+<HTML>
+    {% if author %}
+        <p>{{author.name_author}}{{author.surname_author}}{{author.year_of_birth_autor}}</p>
+        <ul>
+            {% for book in all_books  %}
+            <li>
+                <a href="/books/{{book.id}}/book/"/>{{book.title_book}} </a>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>no authors avalible</p>    
+    {% endif %}
+</HTML>

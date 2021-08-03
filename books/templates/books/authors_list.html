@@ -1,0 +1,13 @@
+<html>
+    {% if authors %}
+        <ul>
+            {% for author in authors %}
+                <li>
+                    <a href="/books/{{author.id}}/books/"/>{{author.name_author}} {{author.surname_author}}</a>
+                </li>    
+            {% endfor %}
+        </ul>    
+    {% else %}
+        <p>there is not such author</p>
+    {% endif %}
+</html>
