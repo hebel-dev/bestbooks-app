@@ -24,6 +24,12 @@ def index(request):
         }
     return render(request,'books/index.html',context)
 
+def three_last_authors():
+    three_last_authors = Book.objects.order_by('title_book')[:3]
+    context = {
+        'three_last_authors': three_last_authors
+    }
+
 # version without html
 # def authors_without_books(request):
 #     authors = Author.objects.all()
@@ -64,13 +70,17 @@ def author_with_all_books(request, author_id):
     }
     return HttpResponse(template.render(context,request))
 
+
+### single book view
 def view_of_book(request, book_id):
     book = Book.objects.get(id=book_id)
-    pan_tadeusz = Book.objects.get(pk=1)
+    print(book)
     template = loader.get_template('books/book_of_author.html')
     context = {
-        book : 'book',
-        pan_tadeusz : 'pan_tadeusz'
-        
+        'book' : book,
     }
     return HttpResponse(template.render(context,request))
+
+### view of the last three books
+
+#def three_last_b
