@@ -24,12 +24,6 @@ def index(request):
         }
     return render(request,'books/index.html',context)
 
-def three_last_authors():
-    three_last_authors = Book.objects.order_by('title_book')[:3]
-    context = {
-        'three_last_authors': three_last_authors
-    }
-
 # version without html
 # def authors_without_books(request):
 #     authors = Author.objects.all()
@@ -83,4 +77,10 @@ def view_of_book(request, book_id):
 
 ### view of the last three books
 
-#def three_last_b
+def three_last_books(request):
+    all_books = Book.objects.order_by('-title_book')[:3]
+    template = loader.get_template('books/three_last_books.html')
+    context = {
+        'all_books' : all_books,
+    }
+    return render(request,'books/three_last_books.html', context)
