@@ -1,16 +1,14 @@
 <html>
     {% if all_books %}
         <p>three last added books</p>
-        {% for book in all_books %}
-            <ul>
+        <ul>
+            {% for book in all_books %}
                 <li>
                     <a href="/books/{{book.id}}/book/"/>{{book}}</a>
                 </li>
-            </ul>
-        {% endfor %}
-    {% else %} 
+            {% endfor %}
+        </ul>
+     % else %} 
     <p>niestety nie ma </p>   
-
-
     {% endif %}
 </html>

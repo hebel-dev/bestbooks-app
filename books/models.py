@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models.deletion import CASCADE
+from django.utils import timezone
 
 class Author (models.Model):
     name_author = models.CharField(max_length=20)
@@ -17,5 +18,17 @@ class Book (models.Model):
 
     def __str__(self):
         return self.title_book
+
+class Coment(models.Model):
+    text = models.TextField()
+    created_date = models.DateTimeField(default=timezone.now)
+    published_date = models.DateTimeField(blank=True, null=True)
+
+    def ___str__(self):
+        return self.text
+    
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
     
 # Create your models here.
