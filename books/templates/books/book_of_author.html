@@ -1,6 +1,26 @@
 
 {% if  book %}
-    <p>{{book.title_book}} {{autors}} {{book.book_id}}</p>
+    <p>{{book.title_book}} {{autors}} {{book.book_id}} </p>
+    <ul>
+        {% for coment in coments %}
+            <li>
+                <p>{{coment.text}} <br>
+                komentarz utworzono {{coment.created_date}}<br>
+                opublikowano  {{coment.published_date}}
+
+            </li>
+        {% endfor %}
+
+    </ul>
+    
+    
+    <!-- comment if exist -->
+    <a href="/books/{{book.id}}/new_coment/">Utwórz nowy post</a>
+    <form method="POST" class="coment-form">{% csrf_token %}
+        
+        {{ form.as_p }}
+        <button type="submit" class=" save btn btn-default">Save</button>
+    </form>
 {% else %}
     <p>there is not such booook</p>
 {% endif %}    

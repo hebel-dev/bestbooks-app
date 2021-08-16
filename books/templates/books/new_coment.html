@@ -1,0 +1,6 @@
+<h2>New coment</h2>
+<a href="/books/{{book.id}}/book/"/>{{book.title_book}} </a>
+    <form method="POST" class="coment-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>

@@ -1,9 +1,11 @@
 from django import template
+from django.utils import timezone
 import books
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from .models import Author, Book
+from .models import Author, Book, Coment
 from django.template import context, loader
+from .forms import ComentForm
 
 # # version without html
 # def index(request):
@@ -68,10 +70,14 @@ def author_with_all_books(request, author_id):
 ### single book view
 def view_of_book(request, book_id):
     book = Book.objects.get(id=book_id)
+    coments = book.coment_set.all()
     print(book)
+    print(coments)
+    ####
     template = loader.get_template('books/book_of_author.html')
     context = {
         'book' : book,
+        'coments' : coments
     }
     return HttpResponse(template.render(context,request))
 
@@ -84,3 +90,38 @@ def three_last_books(request):
         'all_books' : all_books,
     }
     return render(request,'books/three_last_books.html', context)
+
+def new_coment(request,book_id):
+    
+    #else:
+        form = ComentForm()
+        book = Book.objects.get(id=book_id)
+        
+        context = {
+            'form' : form,
+            'book' : book
+        }
+        return render(request, 'books/new_coment.html', context)
+
+def author_coment(request, author_id):
+    author = Author.objects.get(id=author_id)
+    context = {
+        'author' : author,
+    }
+
+
+    return render(request, 'books/author_coment.html', context)
+    
+
+def book_coment(request):
+    if request.method == "POST":
+        form = ComentForm(request.POST)
+        if form.is_valid():
+            coment = form.save(commit=False)
+            coment.published_date = timezone.now()
+            coment.save()
+            return redirect('books/book_of_author.html', pk=coment.pk)
+    else:        
+        form = ComentForm()
+    return render(request, 'books/book_of_author.html', {'form':form})
+
