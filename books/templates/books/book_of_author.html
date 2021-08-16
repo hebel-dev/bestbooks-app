@@ -12,23 +12,24 @@
         {% endfor %} -->
         {% for comment in book.comments.all %}
             <li>
-                
-                {{comment.content}} 
                 <hr>
+                {{comment.content}}<br> 
+                
                 ~~<b>{{comment.author}}</b>
             </li>
         
         {% endfor %}
     </ul>
     
+    <a href="{% url 'add-book-comment' book.id %} ">add coment</a>
     
     <!-- comment if exist -->
-    <a href="/books/{{book.id}}/new_coment/">Utwórz nowy coment</a>
+    <!-- <a href="/books/{{book.id}}/new_coment/">Utwórz nowy coment</a>
     <form method="POST" class="coment-form">{% csrf_token %}
         
         {{ form.as_p }}
         <button type="submit" class=" save btn btn-default">Save</button>
-    </form>
+    </form> -->
 {% else %}
     <p>there is not such booook</p>
 {% endif %}    

@@ -1,10 +1,13 @@
 from django import template
+from django.core.validators import MaxLengthValidator
+from django.http.response import HttpResponseRedirect
 from django.utils import timezone
 import books
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from .models import Author, Book
+from .models import Author, Book, BookComment
 from django.template import context, loader
+from django.urls import reverse
 
 
 # # version without html
@@ -127,5 +130,28 @@ def three_last_books(request):
 #     return render(request, 'books/book_of_author.html', {'form':form})
 
 def create_book_coment_view(request, book_id):
-    return render(request,'books/Book_comment_form.html')
+    book = Book.objects.get(id = book_id)
+    if request.method == 'GET':
+        context = {
+            'book' : book,
+        }
+        return render(request,'books/book_comment_form.html', context)
+    elif request.method == 'POST':
+        print('HHHUUURRRAAA')
+        print(request.POST)      
+        BookComment.objects.create(
+            book = book,
+            author = request.POST.get('author_kto_napisal'),
+            content= request.POST.get('content_co_zostalo_napisane')
 
+        )
+        print
+        return HttpResponseRedirect(reverse('view_of_book', kwargs={'book_id':book_id}))
+
+def create_author_coment_view(request, author_id):
+    author = Author.objects.get(id=author_id)
+    if request.method == 'GET':
+        context = {
+            'author' : author,
+        }
+        return render(request, 'books/author_comment_for.html', context)

@@ -5,13 +5,20 @@
         <title>book comment form</title>
     </head>
     <body>
-        <form method="POST" action="{% url 'add-book-comment' %}"> 
+        
+        <p>add your fucking comment for book :
+            <div>{{book.title_book}}</div><br>
+        </p>   
+        <form method="post" action="{%  url 'add-book-comment' book.id %}">
+            {% csrf_token %}
             <label>Author:
-                <input type="text", name="author">
+                <input type="text", name="author_kto_napisal">
             </label>    
             <label>Comment:
-                <input type="text", name="content">
+                <input type="text", name="content_co_zostalo_napisane">
             </label>
+            <br>
+            <input type="submit" value="add coment">
         </form>
     </body>
 </html>
