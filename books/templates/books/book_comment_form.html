@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>book comment form</title>
+    </head>
+    <body>
+        <form method="POST" action="{% url 'add-book-comment' %}"> 
+            <label>Author:
+                <input type="text", name="author">
+            </label>    
+            <label>Comment:
+                <input type="text", name="content">
+            </label>
+        </form>
+    </body>
+</html>
