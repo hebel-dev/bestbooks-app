@@ -3,9 +3,9 @@ from django.utils import timezone
 import books
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from .models import Author, Book, Coment
+from .models import Author, Book
 from django.template import context, loader
-from .forms import ComentForm
+
 
 # # version without html
 # def index(request):
@@ -70,14 +70,14 @@ def author_with_all_books(request, author_id):
 ### single book view
 def view_of_book(request, book_id):
     book = Book.objects.get(id=book_id)
-    coments = book.coment_set.all()
+    # coments = book.coment_set.all()
     print(book)
-    print(coments)
+    # print(coments)
     ####
     template = loader.get_template('books/book_of_author.html')
     context = {
         'book' : book,
-        'coments' : coments
+        # 'coments' : coments
     }
     return HttpResponse(template.render(context,request))
 
@@ -91,37 +91,41 @@ def three_last_books(request):
     }
     return render(request,'books/three_last_books.html', context)
 
-def new_coment(request,book_id):
+
+### views to Comment in form.py version
+# def new_coment(request,book_id):
     
-    #else:
-        form = ComentForm()
-        book = Book.objects.get(id=book_id)
+#     #else:
+#         form = ComentForm()
+#         book = Book.objects.get(id=book_id)
         
-        context = {
-            'form' : form,
-            'book' : book
-        }
-        return render(request, 'books/new_coment.html', context)
+#         context = {
+#             'form' : form,
+#             'book' : book
+#         }
+#         return render(request, 'books/new_coment.html', context)
 
-def author_coment(request, author_id):
-    author = Author.objects.get(id=author_id)
-    context = {
-        'author' : author,
-    }
+# def author_coment(request, author_id):
+#     author = Author.objects.get(id=author_id)
 
-
-    return render(request, 'books/author_coment.html', context)
+#     context = {
+#         'author' : author,
+#     }
+#     return render(request, 'books/author_coment.html', context)
     
 
-def book_coment(request):
-    if request.method == "POST":
-        form = ComentForm(request.POST)
-        if form.is_valid():
-            coment = form.save(commit=False)
-            coment.published_date = timezone.now()
-            coment.save()
-            return redirect('books/book_of_author.html', pk=coment.pk)
-    else:        
-        form = ComentForm()
-    return render(request, 'books/book_of_author.html', {'form':form})
+# def book_coment(request):
+#     if request.method == "POST":
+#         form = ComentForm(request.POST)
+#         if form.is_valid():
+#             coment = form.save(commit=False)
+#             coment.published_date = timezone.now()
+#             coment.save()
+#             return redirect('books/book_of_author.html', pk=coment.pk)
+#     else:        
+#         form = ComentForm()
+#     return render(request, 'books/book_of_author.html', {'form':form})
+
+def create_book_coment_view(request, book_id):
+    return render(request,'books/Book_comment_form.html')
 
