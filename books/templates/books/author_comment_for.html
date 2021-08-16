@@ -6,10 +6,30 @@
     </head>
     <body>
         <p>
-            <h2>add your fucking comment to author</h2>
+            <!-- check why if author doesnt work properly -->
+            {% if author %}                                     
+            <h4>add your fucking comment to author</h2>
             <div>
                 {{author.surname_author}} {{author.name_author}}
             </div>
+            <form method="POST" action="{% url 'add-author-comment' author.id %}">
+                {% csrf_token %}
+                <label>
+                    Author:
+                    <input type="text" name="author_who">
+                </label>
+                <label>
+                    Comment:
+                    <input type="text" name="content_what">
+                </label>
+                <label>
+                    <input type="submit" value="add comment">
+                </label>
+
+            </form>
+            {% else %}
+                <p>there is no such author</p>
+            {% endif %}
         </p>
     </body>
 </html>

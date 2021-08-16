@@ -5,7 +5,7 @@ from django.utils import timezone
 import books
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from .models import Author, Book, BookComment
+from .models import Author, AuthorComment, Book, BookComment
 from django.template import context, loader
 from django.urls import reverse
 
@@ -74,7 +74,7 @@ def author_with_all_books(request, author_id):
 def view_of_book(request, book_id):
     book = Book.objects.get(id=book_id)
     # coments = book.coment_set.all()
-    print(book)
+    
     # print(coments)
     ####
     template = loader.get_template('books/book_of_author.html')
@@ -155,3 +155,12 @@ def create_author_coment_view(request, author_id):
             'author' : author,
         }
         return render(request, 'books/author_comment_for.html', context)
+    elif request.method == 'POST':
+        print('WHere')
+        print(request.POST)
+        AuthorComment.objects.create(
+            author_related= author,
+            author = request.POST.get('author_who'),
+            content = request.POST.get('content_what')
+        )
+        return HttpResponseRedirect(reverse('author_with_all_books', kwargs={'author_id' : author_id}))

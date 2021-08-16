@@ -1,6 +1,18 @@
 <HTML>
     {% if author %}
         <p>{{author.name_author}}{{author.surname_author}}{{author.year_of_birth_autor}}</p>
+        
+        {% for coment in author.commented_about_author.all %}
+        <hr>
+        {{coment.content}}
+
+        <b>   ~{{coment.author}}</b>
+        {% endfor %}<br>
+        <a href="{% url 'add-author-comment' author.id %}">Add new coment to author</a>
+
+
+
+        <h4>List of books</h4>
         <ul>
             {% for book in all_books  %}
             <li>

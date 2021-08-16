@@ -39,3 +39,9 @@ class BookComment(models.Model):
     content = models.TextField()
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='comments')
     created_at = models.DateTimeField(auto_now_add=True)
+
+class AuthorComment(models.Model):
+    author = models.CharField(max_length=128)
+    content = models.TextField()
+    author_related = models.ForeignKey(Author,on_delete=models.CASCADE, related_name='commented_about_author')
+    created_ad = models.DateTimeField(auto_now_add=True)

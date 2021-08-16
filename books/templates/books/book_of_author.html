@@ -1,36 +1,22 @@
 
-{% if  book %}
-    <p>"<b>{{book.title_book}}"</b> {{book.author}} </p>
-    <ul>
-        <!-- {% for coment in coments %}
-            <li>
-                <p>{{coment.text}} <br>
-                komentarz utworzono {{coment.created_date}}<br>
-                opublikowano  {{coment.published_date}}
 
-            </li>
-        {% endfor %} -->
+    <p>"<b>{{book.title_book}}"</b> {{book.author}} </p>
+    
+        
         {% for comment in book.comments.all %}
             <li>
-                <hr>
-                {{comment.content}}<br> 
                 
+                {{comment.content}} 
+                <hr>
                 ~~<b>{{comment.author}}</b>
             </li>
         
         {% endfor %}
-    </ul>
+
     
     <a href="{% url 'add-book-comment' book.id %} ">add coment</a>
     
-    <!-- comment if exist -->
-    <!-- <a href="/books/{{book.id}}/new_coment/">Utwórz nowy coment</a>
-    <form method="POST" class="coment-form">{% csrf_token %}
-        
-        {{ form.as_p }}
-        <button type="submit" class=" save btn btn-default">Save</button>
-    </form> -->
-{% else %}
+    
+
     <p>there is not such booook</p>
-{% endif %}    
 
