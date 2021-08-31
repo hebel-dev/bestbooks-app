@@ -5,9 +5,9 @@
         
         {% for comment in book.comments.all %}
             <li>
-                
-                {{comment.content}} 
                 <hr>
+                {{comment.content}} 
+                
                 ~~<b>{{comment.author}}</b>
             </li>
         
@@ -15,8 +15,5 @@
 
     
     <a href="{% url 'add-book-comment' book.id %} ">add coment</a>
-    
-    
 
-    <p>there is not such booook</p>
 

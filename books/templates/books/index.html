@@ -1,7 +1,7 @@
 <HTML>
-    {% if three_author_list %}
+    {% if authors %}
         <ul>
-            {% for author in three_author_list  %}
+            {% for author in authors  %}
             <li>
                 <a href="/books/{{author.id}}/books"/>{{author.surname_author}}</a>
             </li>
